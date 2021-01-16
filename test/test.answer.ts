@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { undupe } from '../src/answer';
-import { generateList } from './utils/arrayGenerator';
+import { generateList } from './utils/dataGenerator';
 
-const BIG_ARRAY = generateList(100000);
+const SIZE = 100000;
+const BIG_ARRAY = generateList(SIZE);
 
 describe('My function', function () {
   it('should remove duplicate emails in a tiny list', function () {
@@ -38,7 +39,7 @@ describe('My function', function () {
   it('should return a list with 50% the size of the original list', function () {
     const actual = undupe(BIG_ARRAY.input);
 
-    expect(actual).to.have.lengthOf(50000);
+    expect(actual).to.have.lengthOf(Math.floor(SIZE / 2));
   });
 
   it('should preserve the original ordering of emails', function () {
