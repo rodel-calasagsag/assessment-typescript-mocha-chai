@@ -12,8 +12,19 @@ describe('My answer', function () {
   });
 
   it('should remove duplicate emails in a small array', function () {
-    const input = ['b@mail.com', 'a@mail.com', 'b@mail.com'];
-    const expected = ['b@mail.com', 'a@mail.com'];
+    const input = [
+      'one@example.com',
+      'two@example.com',
+      'one@example.com',
+      'three@example.com',
+      'three@example.com',
+      'two@example.com'
+    ];
+    const expected = [
+      'one@example.com',
+      'two@example.com',
+      'three@example.com'
+    ];
     const actual = undupe(input);
 
     expect(actual).to.deep.eq(expected);
