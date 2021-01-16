@@ -8,6 +8,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "prettier.trailingComma": "none",
-    "prettier.singleQuote": true
+    "prettier.singleQuote": true,
+    "files.autoSave": "afterDelay",
+    "editor.wordWrap": "on"
   }
 }

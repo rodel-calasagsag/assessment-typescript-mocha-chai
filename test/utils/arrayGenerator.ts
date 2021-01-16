@@ -1,18 +1,35 @@
 import { Chance } from 'chance';
 
-export function generateArray(size: number): Fixture {
+export function generateList(size: number): Fixture {
   const chance = new Chance();
 
-  // generate unique emails
+  console.log(`Generating a list of ${size} email/s. Please wait...`);
+
+  // generate unique email
   const uniqueSize = Math.floor(size / 2);
   const uniques = chance.unique(chance.email, uniqueSize);
-  // todo handle cases where size is an odd number
 
-  // todo improve distribution of dupes
-  const dupes = chance.shuffle(uniques);
+  // pick emails to duplicate
+  const dupesSize = size - uniqueSize;
+  const dupes = chance.pickset(uniques, dupesSize);
+
+  // combine the unique and duplicate emails and shuffle them
+  const input = chance.shuffle(uniques.concat(dupes));
+
+  // get the expected output using an alternative approach
+  const seen: string[] = [];
+  const expectedOutput = input.reduce((acc, currentValue) => {
+    if (!acc.includes(currentValue)) {
+      acc.push(currentValue);
+    }
+
+    return acc;
+  }, seen);
+
+  console.log('Done');
 
   return {
-    input: uniques.concat(dupes),
-    expectedOutput: uniques
+    input: input,
+    expectedOutput: expectedOutput
   };
 }

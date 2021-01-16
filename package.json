@@ -10,7 +10,7 @@
     "clean": "rm -rf out/",
     "build": "npm run clean && tsc",
     "lint": "eslint **/*.ts",
-    "test": "npm run build && cd out && mocha -s 1"
+    "test": "npm run build && cd out && mocha -s 0"
   },
   "repository": {
     "type": "git",

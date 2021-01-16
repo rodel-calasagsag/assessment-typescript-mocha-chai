@@ -1,16 +1,11 @@
 import { expect } from 'chai';
 import { undupe } from '../src/answer';
-import { generateArray } from './utils/arrayGenerator';
+import { generateList } from './utils/arrayGenerator';
 
-describe('My answer', function () {
-  let BIG_ARRAY: Fixture;
+const BIG_ARRAY = generateList(100000);
 
-  before(function () {
-    this.timeout('10s');
-    BIG_ARRAY = generateArray(100000);
-  });
-
-  it('should remove duplicate emails in a small array', function () {
+describe('My function', function () {
+  it('should remove duplicate emails in a tiny list', function () {
     const input = [
       'one@example.com',
       'two@example.com',
@@ -29,12 +24,37 @@ describe('My answer', function () {
     expect(actual).to.deep.eq(expected);
   });
 
-  it('should remove duplicate emails in a big array within 1 sec', function () {
-    let t = process.hrtime();
+  it('should remove all duplicates from a list of 100,000 emails', function () {
     const actual = undupe(BIG_ARRAY.input);
-    t = process.hrtime(t);
 
     expect(actual).to.deep.eq(BIG_ARRAY.expectedOutput);
-    expect(t[0]).to.eq(0);
+  });
+
+  it('should process 100,000 emails in less than 1 sec', function () {
+    this.timeout('1s');
+    undupe(BIG_ARRAY.input);
+  });
+
+  it('should return a list with 50% the size of the original list', function () {
+    const actual = undupe(BIG_ARRAY.input);
+
+    expect(actual).to.have.lengthOf(50000);
+  });
+
+  it('should preserve the original ordering of emails', function () {
+    this.timeout('10s'); // todo remove this
+    const input = BIG_ARRAY.input;
+    const output = undupe(input);
+    const outputLength = output.length;
+
+    // todo optimize this. currently taking 8s to complete
+    for (let i = 0; i < outputLength - 1; i++) {
+      const currentOutput = output[i];
+      const nextOutput = output[i + 1];
+
+      expect(input.indexOf(currentOutput)).to.be.lessThan(
+        input.indexOf(nextOutput)
+      );
+    }
   });
 });
