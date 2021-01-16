@@ -34,7 +34,7 @@ describe('My answer', function () {
     const actual = undupe(BIG_ARRAY.input);
     t = process.hrtime(t);
 
-    // expect(actual).to.deep.eq(BIG_ARRAY.expectedOutput);
+    expect(actual).to.deep.eq(BIG_ARRAY.expectedOutput);
     expect(t[0]).to.eq(0);
   });
 });
