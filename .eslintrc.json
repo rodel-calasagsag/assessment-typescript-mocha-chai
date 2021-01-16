@@ -16,5 +16,5 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "chai-friendly", "mocha"],
-  "rules": { "ignorePatterns": ["out/**"] }
+  "rules": {}
 }

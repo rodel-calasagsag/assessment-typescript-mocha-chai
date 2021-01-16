@@ -9,6 +9,7 @@
   "scripts": {
     "clean": "rm -rf out/",
     "build": "npm run clean && tsc",
+    "lint": "eslint **/*.ts",
     "test": "npm run build && cd out && mocha"
   },
   "repository": {
@@ -23,10 +24,13 @@
   "homepage": "https://github.com/rodel-calasagsag/automattic-take-home-test#readme",
   "devDependencies": {
     "@types/chai": "^4.2.14",
+    "@types/chance": "^1.1.1",
     "@types/mocha": "^8.2.0",
+    "@types/node": "^14.14.21",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "chai": "^4.2.0",
+    "chance": "^1.1.7",
     "eslint": "^7.18.0",
     "eslint-plugin-chai-friendly": "^0.6.0",
     "eslint-plugin-mocha": "^8.0.0",
