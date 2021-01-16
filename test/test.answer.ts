@@ -25,7 +25,7 @@ describe('My answer', function () {
     expect(actual).to.deep.eq(BIG_ARRAY.answer);
   });
 
-  it('should return an answer in under 1 sec', function () {
+  it('should remove duplicate emails in a big array in under 1 sec', function () {
     this.timeout('1s');
     undupe(BIG_ARRAY.input);
   });
