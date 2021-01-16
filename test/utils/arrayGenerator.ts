@@ -1,6 +1,6 @@
 import { Chance } from 'chance';
 
-export function generateArray(size: number): TestArray {
+export function generateArray(size: number): Fixture {
   const chance = new Chance();
 
   // generate unique emails
@@ -13,6 +13,6 @@ export function generateArray(size: number): TestArray {
 
   return {
     input: uniques.concat(dupes),
-    answer: uniques
+    expectedOutput: uniques
   };
 }

@@ -1,4 +1,4 @@
-interface TestArray {
+interface Fixture {
   input: string[];
-  answer: string[];
+  expectedOutput: string[];
 }
