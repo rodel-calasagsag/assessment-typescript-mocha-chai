@@ -3,29 +3,30 @@ import { undupe } from '../src/answer';
 import { generateArray } from './utils/arrayGenerator';
 
 describe('My answer', function () {
-  // test data
-  const SMALL_ARRAY = ['three@m.c', 'one@m.c', 'three@m.c'];
+  this.timeout('6s');
 
-  it('should return an array of strings', function () {
-    const actual = undupe(SMALL_ARRAY);
-    expect(actual).to.be.an('array');
+  let BIG_ARRAY: TestArray;
 
-    for (const s of SMALL_ARRAY) {
-      expect(s).to.be.a('string');
-    }
+  before(function () {
+    BIG_ARRAY = generateArray(100000);
   });
 
-  it('should remove duplicate emails', function () {
-    const actual = undupe(SMALL_ARRAY);
-    const expected = ['three@m.c', 'one@m.c'];
+  it('should remove duplicate emails in a small array', function () {
+    const input = ['b@mail.com', 'a@mail.com', 'b@mail.com'];
+    const expected = ['b@mail.com', 'a@mail.com'];
+    const actual = undupe(input);
 
     expect(actual).to.deep.eq(expected);
   });
 
-  it.only('should run under 1 sec', function () {
-    const BIG_ARRAY = generateArray(20); // todo change to 100k
+  it('should remove duplicate emails in a big array', function () {
+    const actual = undupe(BIG_ARRAY.input);
 
-    const start = process.hrtime();
-    const duration = process.hrtime(start);
+    expect(actual).to.deep.eq(BIG_ARRAY.answer);
+  });
+
+  it('should return an answer in under 1 sec', function () {
+    this.timeout('1s');
+    undupe(BIG_ARRAY.input);
   });
 });

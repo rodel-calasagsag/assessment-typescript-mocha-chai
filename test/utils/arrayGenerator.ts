@@ -1,8 +1,18 @@
 import { Chance } from 'chance';
 
-export function generateArray(arrayLength) {
+export function generateArray(size: number): TestArray {
   const chance = new Chance();
 
-  const uniqueEmails = chance.unique(chance.email, arrayLength);
-  
+  // generate unique emails
+  const uniqueSize = Math.floor(size / 2);
+  const uniques = chance.unique(chance.email, uniqueSize);
+  // todo handle cases where size is an odd number
+
+  // todo improve distribution of dupes
+  const dupes = chance.shuffle(uniques);
+
+  return {
+    input: uniques.concat(dupes),
+    answer: uniques
+  };
 }
