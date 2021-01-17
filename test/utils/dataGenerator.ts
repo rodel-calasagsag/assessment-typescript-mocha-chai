@@ -1,20 +1,26 @@
 import { Chance } from 'chance';
 
-export function generateList(size: number): Fixture {
-  const chance = new Chance();
+const chance = new Chance();
 
-  console.log(`Generating a list of ${size} email/s. Please wait...`);
+export function generateData(size: number): TestData {
+  const horRule = '====================================================';
+  console.log(
+    `${horRule}\nGenerating a list of ${size} email/s. Please wait...`
+  );
 
-  // generate unique email
+  // generate unique emails
   const uniqueSize = Math.floor(size / 2);
-  const uniques = chance.unique(chance.email, uniqueSize);
+  const uniques = chance.unique(() => {
+    return `${chance.guid()}@${chance.domain()}`;
+  }, uniqueSize);
 
   // pick emails to duplicate
   const dupesSize = size - uniqueSize;
   const dupes = chance.pickset(uniques, dupesSize);
 
   // combine the unique and duplicate emails and shuffle them
-  const input = chance.shuffle(uniques.concat(dupes));
+  const combined = uniques.concat(dupes);
+  const input = chance.shuffle(combined);
 
   // get the expected output using an alternative approach
   const seen: string[] = [];
@@ -26,10 +32,10 @@ export function generateList(size: number): Fixture {
     return acc;
   }, seen);
 
-  console.log('Done');
+  console.log(`Done!\n${horRule}`);
 
   return {
-    input: input,
+    source: input,
     expectedOutput: expectedOutput
   };
 }

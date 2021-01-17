@@ -1,4 +1,4 @@
-interface Fixture {
-  input: string[];
+interface TestData {
+  source: string[];
   expectedOutput: string[];
 }

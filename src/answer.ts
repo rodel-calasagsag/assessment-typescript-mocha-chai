@@ -1,3 +1,8 @@
+/**
+ * Remove duplicates in a list. Preserves ordering of items.
+ *
+ * @param A list of emails
+ */
 export function undupe(A: string[]): string[] {
-  return [...new Set(A)];
+  return Array.from(new Set(A));
 }

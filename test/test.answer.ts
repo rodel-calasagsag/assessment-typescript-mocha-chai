@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { undupe } from '../src/answer';
-import { generateList } from './utils/dataGenerator';
+import { generateData } from './utils/dataGenerator';
 
 const SIZE = 100000;
-const BIG_ARRAY = generateList(SIZE);
+const BIG_TEST_DATA = generateData(SIZE);
 
 describe('My function', function () {
   it('should remove duplicate emails in a tiny list', function () {
-    const input = [
+    const source = [
       'one@example.com',
       'two@example.com',
       'one@example.com',
@@ -15,47 +15,40 @@ describe('My function', function () {
       'three@example.com',
       'two@example.com'
     ];
-    const expected = [
+    const expectedOutput = [
       'one@example.com',
       'two@example.com',
       'three@example.com'
     ];
-    const actual = undupe(input);
+    const actualOutput = undupe(source);
 
-    expect(actual).to.deep.eq(expected);
+    expect(actualOutput).to.deep.eq(expectedOutput);
   });
 
   it('should remove all duplicates from a list of 100,000 emails', function () {
-    const actual = undupe(BIG_ARRAY.input);
+    const actualOutput = undupe(BIG_TEST_DATA.source);
 
-    expect(actual).to.deep.eq(BIG_ARRAY.expectedOutput);
+    expect(actualOutput).to.deep.eq(BIG_TEST_DATA.expectedOutput);
   });
 
   it('should process 100,000 emails in less than 1 sec', function () {
     this.timeout('1s');
-    undupe(BIG_ARRAY.input);
+    undupe(BIG_TEST_DATA.source);
   });
 
   it('should return a list with 50% the size of the original list', function () {
-    const actual = undupe(BIG_ARRAY.input);
+    const actualOutput = undupe(BIG_TEST_DATA.source);
+    const expectedLength = Math.floor(SIZE / 2);
 
-    expect(actual).to.have.lengthOf(Math.floor(SIZE / 2));
+    expect(actualOutput).to.have.lengthOf(expectedLength);
   });
 
   it('should preserve the original ordering of emails', function () {
-    this.timeout('10s'); // todo remove this
-    const input = BIG_ARRAY.input;
-    const output = undupe(input);
-    const outputLength = output.length;
+    const source = BIG_TEST_DATA.source;
+    const output = undupe(source);
+    const sourceSet = new Set(source);
+    const outputSet = new Set(output);
 
-    // todo optimize this. currently taking 8s to complete
-    for (let i = 0; i < outputLength - 1; i++) {
-      const currentOutput = output[i];
-      const nextOutput = output[i + 1];
-
-      expect(input.indexOf(currentOutput)).to.be.lessThan(
-        input.indexOf(nextOutput)
-      );
-    }
+    expect(outputSet).to.deep.eq(sourceSet);
   });
 });
