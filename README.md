@@ -30,3 +30,5 @@ In order to run the tests, your system should have Node.js installed.
 
 1. You should see an output similar to this. Notice that all tests are passing.
    ![Sample screenshot of output](media/test_results.png)
+
+Here's a link to a video showing the tests running in a laptop. ![Click here](https://drive.google.com/file/d/1OjP4Qpu6GeXPKJK_Q5QjYkSqb2i0DHCC/view?usp=sharing)
